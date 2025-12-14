@@ -1,6 +1,9 @@
 {
-  "name": "qr-generator",
-  "short_name": "qr-generator",
+  "name": "QR Code Generator",
+  "short_name": "QR Generator",
+  "description": "Free QR Code Generator. Generate QR codes for any link - YouTube, Google Maps, product links, and more. Works offline!",
+  "theme_color": "#6366f1",
+  "background_color": "#f5f3ff",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
