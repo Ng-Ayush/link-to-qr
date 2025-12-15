@@ -1,14 +1,19 @@
 <div class="min-h-screen flex flex-col">
+  <button *ngIf="showInstall" (click)="installApp()">
+    Install App
+  </button>
   <!-- Offline indicator -->
   @if (!isOnline()) {
-    <div class="bg-amber-500 text-white text-center py-2 text-sm font-medium">
-      <span class="inline-flex items-center gap-2">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m2.829 2.829L21 21M15.536 8.464a5 5 0 010 7.072m0 0l-2.829-2.829m-4.243 2.829a4.978 4.978 0 01-1.414-2.83m-1.414 5.658a9 9 0 01-2.167-9.238m7.824 2.167a1 1 0 111.414 1.414m-1.414-1.414L3 3"></path>
-        </svg>
-        Offline Mode - App works without internet!
-      </span>
-    </div>
+  <div class="bg-amber-500 text-white text-center py-2 text-sm font-medium">
+    <span class="inline-flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m2.829 2.829L21 21M15.536 8.464a5 5 0 010 7.072m0 0l-2.829-2.829m-4.243 2.829a4.978 4.978 0 01-1.414-2.83m-1.414 5.658a9 9 0 01-2.167-9.238m7.824 2.167a1 1 0 111.414 1.414m-1.414-1.414L3 3">
+        </path>
+      </svg>
+      Offline Mode - App works without internet!
+    </span>
+  </div>
   }
 
   <!-- Main content -->
@@ -16,9 +21,12 @@
     <div class="w-full max-w-lg">
       <!-- Header -->
       <div class="text-center mb-8">
-        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
+        <div
+          class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
           <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z">
+            </path>
           </svg>
         </div>
         <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">QR Code Generator</h1>
@@ -31,79 +39,66 @@
         <div class="mb-6">
           <label class="block text-sm font-medium text-gray-700 mb-2">Enter your link</label>
           <div class="relative">
-            <input
-              type="url"
-              [ngModel]="urlInput()"
-              (ngModelChange)="urlInput.set($event)"
+            <input type="url" [ngModel]="urlInput()" (ngModelChange)="urlInput.set($event)"
               placeholder="https://example.com"
               class="w-full px-4 py-3 pr-24 border-2 rounded-xl focus:outline-none transition-all duration-200"
-              [class.border-gray-200]="!urlInput()"
-              [class.focus:border-indigo-500]="!urlInput() || isValidUrl()"
+              [class.border-gray-200]="!urlInput()" [class.focus:border-indigo-500]="!urlInput() || isValidUrl()"
               [class.border-emerald-500]="urlInput() && isValidUrl()"
-              [class.border-red-400]="urlInput() && !isValidUrl()"
-            />
+              [class.border-red-400]="urlInput() && !isValidUrl()" />
             <div class="absolute right-2 top-1/2 -translate-y-1/2 flex gap-1">
               @if (urlInput()) {
-                <button
-                  (click)="clearInput()"
-                  class="p-2 text-gray-400 hover:text-gray-600 transition-colors"
-                  title="Clear"
-                >
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                  </svg>
-                </button>
+              <button (click)="clearInput()" class="p-2 text-gray-400 hover:text-gray-600 transition-colors"
+                title="Clear">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
               }
-              <button
-                (click)="pasteFromClipboard()"
-                class="px-3 py-1.5 bg-indigo-50 text-indigo-600 text-sm font-medium rounded-lg hover:bg-indigo-100 transition-colors"
-              >
+              <button (click)="pasteFromClipboard()"
+                class="px-3 py-1.5 bg-indigo-50 text-indigo-600 text-sm font-medium rounded-lg hover:bg-indigo-100 transition-colors">
                 Paste
               </button>
             </div>
           </div>
           @if (urlInput() && !isValidUrl()) {
-            <p class="mt-2 text-sm text-red-500 flex items-center gap-1">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              Please enter a valid URL (https://...)
-            </p>
+          <p class="mt-2 text-sm text-red-500 flex items-center gap-1">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            Please enter a valid URL (https://...)
+          </p>
           }
         </div>
 
         <!-- QR Code Display -->
         <div class="flex flex-col items-center">
           @if (showQR()) {
-            <div #qrCodeContainer class="bg-white p-4 rounded-2xl border-2 border-gray-100 mb-6">
-              <qrcode
-                [qrdata]="urlInput()"
-                [width]="220"
-                [errorCorrectionLevel]="'M'"
-                [elementType]="'canvas'"
-              ></qrcode>
-            </div>
+          <div #qrCodeContainer class="bg-white p-4 rounded-2xl border-2 border-gray-100 mb-6">
+            <qrcode [qrdata]="urlInput()" [width]="220" [errorCorrectionLevel]="'M'" [elementType]="'canvas'"></qrcode>
+          </div>
 
-            <!-- Download Button -->
-            <button
-              (click)="downloadQR()"
-              class="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-            >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-              </svg>
-              Download QR Code
-            </button>
+          <!-- Download Button -->
+          <button (click)="downloadQR()"
+            class="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+            </svg>
+            Download QR Code
+          </button>
           } @else {
-            <!-- Empty state -->
-            <div class="text-center py-12">
-              <div class="w-32 h-32 mx-auto mb-4 bg-gray-100 rounded-2xl flex items-center justify-center">
-                <svg class="w-16 h-16 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
-                </svg>
-              </div>
-              <p class="text-gray-500">Enter a URL to generate your QR code</p>
+          <!-- Empty state -->
+          <div class="text-center py-12">
+            <div class="w-32 h-32 mx-auto mb-4 bg-gray-100 rounded-2xl flex items-center justify-center">
+              <svg class="w-16 h-16 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z">
+                </path>
+              </svg>
             </div>
+            <p class="text-gray-500">Enter a URL to generate your QR code</p>
+          </div>
           }
         </div>
 
@@ -112,21 +107,18 @@
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
               <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
+                </path>
               </svg>
               <span class="text-sm text-gray-600">Show notifications</span>
             </div>
-            <button
-              (click)="toggleAlerts()"
+            <button (click)="toggleAlerts()"
               class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200"
-              [class.bg-indigo-500]="alertsEnabled()"
-              [class.bg-gray-300]="!alertsEnabled()"
-            >
+              [class.bg-indigo-500]="alertsEnabled()" [class.bg-gray-300]="!alertsEnabled()">
               <span
                 class="inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform duration-200"
-                [class.translate-x-6]="alertsEnabled()"
-                [class.translate-x-1]="!alertsEnabled()"
-              ></span>
+                [class.translate-x-6]="alertsEnabled()" [class.translate-x-1]="!alertsEnabled()"></span>
             </button>
           </div>
         </div>
@@ -145,7 +137,9 @@
         <div class="flex flex-col items-center">
           <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center mb-2">
             <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+              </path>
             </svg>
           </div>
           <span class="text-xs text-gray-600 font-medium">No Ads</span>
@@ -153,7 +147,9 @@
         <div class="flex flex-col items-center">
           <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center mb-2">
             <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0">
+              </path>
             </svg>
           </div>
           <span class="text-xs text-gray-600 font-medium">Works Offline</span>
@@ -170,12 +166,12 @@
   <!-- Toast Container -->
   <div class="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
     @for (toast of toasts(); track toast.id) {
-      <div [class]="getToastClasses(toast.type)" (click)="removeToast(toast.id)">
-        <span class="w-6 h-6 flex items-center justify-center bg-white/20 rounded-full text-sm font-bold">
-          {{ getToastIcon(toast.type) }}
-        </span>
-        <span class="text-sm font-medium">{{ toast.message }}</span>
-      </div>
+    <div [class]="getToastClasses(toast.type)" (click)="removeToast(toast.id)">
+      <span class="w-6 h-6 flex items-center justify-center bg-white/20 rounded-full text-sm font-bold">
+        {{ getToastIcon(toast.type) }}
+      </span>
+      <span class="text-sm font-medium">{{ toast.message }}</span>
+    </div>
     }
   </div>
 </div>

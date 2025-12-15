@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, signal, computed } from '@angular/core';
+import { Component, ViewChild, ElementRef, signal, computed, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { QRCodeComponent } from 'angularx-qrcode';
@@ -24,6 +24,8 @@ export class App {
   isOnline = signal(navigator.onLine);
   toasts = signal<Toast[]>([]);
   private toastId = 0;
+  deferredPrompt: any;
+  showInstall = false;
 
   isValidUrl = computed(() => {
     const url = this.urlInput();
@@ -86,10 +88,10 @@ export class App {
 
   showToast(message: string, type: 'success' | 'error' | 'info') {
     if (!this.alertsEnabled()) return;
-    
+
     const id = ++this.toastId;
     this.toasts.update(current => [...current, { id, message, type }]);
-    
+
     setTimeout(() => {
       this.toasts.update(current => current.filter(t => t.id !== id));
     }, 3000);
@@ -124,5 +126,23 @@ export class App {
       default:
         return 'ℹ';
     }
+  }
+
+  @HostListener('window:beforeinstallprompt', ['$event'])
+  onBeforeInstallPrompt(event: Event) {
+    event.preventDefault();
+    this.deferredPrompt = event;
+    this.showInstall = true;
+  }
+
+  installApp() {
+    if (!this.deferredPrompt) return;
+
+    this.deferredPrompt.prompt();
+
+    this.deferredPrompt.userChoice.then(() => {
+      this.deferredPrompt = null;
+      this.showInstall = false;
+    });
   }
 }
